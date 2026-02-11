@@ -6,6 +6,7 @@ export default function App() {
   const [liked, setLiked] = useState(false);
   const [text, setText] = useState("");
   const [scroll, setScroll] = useState(0);
+  const [horizontal, setHorizontal] = useState(false);
 
   console.log("🔄 Re-render");
 
@@ -28,9 +29,7 @@ export default function App() {
       {/* HOVER */}
       <section>
         <h4>Hover</h4>
-        <div
-          className={liked ? "card active" : "card"}
-        >
+        <div className={liked ? "card active" : "card"}>
           Hover / Toggle color
         </div>
       </section>
@@ -59,18 +58,26 @@ export default function App() {
         />
       </section>
 
-      {/* SCROLL */}
+      {/* SCROLL + CHILD LAYOUTS */}
       <section>
-        <h4>Scroll (inside parent)</h4>
+        <h4>Parent → Child Scroll Layout</h4>
+
+        <button onClick={() => setHorizontal(!horizontal)}>
+          {horizontal ? "Vertical Scroll" : "Horizontal Scroll"}
+        </button>
+
         <div
-          className="scrollBox"
+          className={`scrollBox ${horizontal ? "horizontal" : "vertical"}`}
           onScroll={(e) => setScroll(e.target.scrollTop)}
         >
-          <div className="scrollContent">
-            Scroll inside this box
-          </div>
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div className="scrollContent" key={i}>
+              Child {i + 1}
+            </div>
+          ))}
         </div>
-        <p>Scroll Y: {scroll}px</p>
+
+        <p>Scroll position: {scroll}px</p>
       </section>
     </div>
   );
