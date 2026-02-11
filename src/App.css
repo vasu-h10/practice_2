@@ -1,10 +1,14 @@
+/* ========================= */
 /* Base page */
+/* ========================= */
 body {
   margin: 0;
   background: #f2f2f2;
 }
 
+/* ========================= */
 /* App container */
+/* ========================= */
 .app {
   max-width: 420px;
   margin: auto;
@@ -13,12 +17,16 @@ body {
   background: white;
 }
 
+/* ========================= */
 /* Sections */
+/* ========================= */
 section {
   margin-bottom: 20px;
 }
 
+/* ========================= */
 /* Buttons */
+/* ========================= */
 button {
   margin: 5px 5px 5px 0;
   padding: 8px 14px;
@@ -33,7 +41,9 @@ button:active {
   transform: scale(0.97);
 }
 
+/* ========================= */
 /* Inputs */
+/* ========================= */
 input {
   width: 100%;
   padding: 8px;
@@ -41,15 +51,19 @@ input {
   box-sizing: border-box;
 }
 
-/* Card (hover / toggle example) */
+/* ========================= */
+/* Card (used for hover & boxes) */
+/* ========================= */
 .card {
-  height: 60px;
+  width: 80px;
+  height: 80px;
   background: #ccc;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
+  border-radius: 8px;
   transition: background 0.3s, color 0.3s;
+  user-select: none;
 }
 
 .card.active {
@@ -65,35 +79,33 @@ input {
 .scrollBox {
   border: 1px solid #333;
   margin-top: 10px;
+  padding: 8px;
+  background: #fafafa;
 }
 
-/* Vertical scroll (default) */
+/* Vertical scroll */
 .scrollBox.vertical {
-  height: 100px;
+  height: 140px;
   overflow-y: scroll;
 }
 
 /* Horizontal scroll */
 .scrollBox.horizontal {
   display: flex;
+  gap: 10px;
   overflow-x: scroll;
-  white-space: nowrap;
 }
 
-/* Scroll children */
-.scrollContent {
-  height: 300px;
-  padding: 10px;
+/* ========================= */
+/* Child layouts */
+/* ========================= */
+
+/* Child boxes inside vertical scroll */
+.scrollBox.vertical .card {
+  margin-bottom: 10px;
 }
 
-/* Horizontal child items */
-.horizontal .scrollContent {
-  height: auto;
-  min-width: 200px;
-  margin-right: 10px;
-  background: #ddd;
-  border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+/* Child boxes inside horizontal scroll */
+.scrollBox.horizontal .card {
+  flex-shrink: 0; /* VERY IMPORTANT */
 }
