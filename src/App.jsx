@@ -1,68 +1,77 @@
 import { useState } from "react";
+import "./App.css";
 
 export default function App() {
   const [count, setCount] = useState(0);
-  const [hovered, setHovered] = useState(false);
-  const [enabled, setEnabled] = useState(false);
+  const [liked, setLiked] = useState(false);
   const [text, setText] = useState("");
-  const [scrollY, setScrollY] = useState(0);
+  const [scroll, setScroll] = useState(0);
 
-  console.log("🔄 App re-rendered");
+  console.log("🔄 Re-render");
 
   return (
     <div className="app">
-      <h2>React Events – One File</h2>
+      <h2>All Events – One Interface</h2>
 
-      {/* Click */}
-      <button onClick={() => setCount(count + 1)}>
-        Click (+): {count}
-      </button>
+      {/* CLICK + TOGGLE */}
+      <section>
+        <h4>Click / Toggle</h4>
+        <button onClick={() => setCount(count + 1)}>+ Click</button>
+        <button onClick={() => setCount(count - 1)}>- Click</button>
+        <p>Count: {count}</p>
 
-      {/* Double click */}
-      <button onDoubleClick={() => setCount(count - 1)}>
-        Double Click (-)
-      </button>
+        <button onClick={() => setLiked(!liked)}>
+          {liked ? "❤️ Liked" : "🤍 Like"}
+        </button>
+      </section>
 
-      {/* Hover */}
-      <div
-        className={hovered ? "box active" : "box"}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        Hover me
-      </div>
+      {/* HOVER */}
+      <section>
+        <h4>Hover</h4>
+        <div
+          className={liked ? "card active" : "card"}
+        >
+          Hover / Toggle color
+        </div>
+      </section>
 
-      {/* Toggle */}
-      <button onClick={() => setEnabled(!enabled)}>
-        Toggle: {enabled ? "ON" : "OFF"}
-      </button>
+      {/* INPUT + CHANGE */}
+      <section>
+        <h4>Input</h4>
+        <input
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Type here"
+        />
+        <p>Typed: {text}</p>
+      </section>
 
-      {/* Input */}
-      <input
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Type here"
-      />
-      <p>You typed: {text}</p>
+      {/* KEYBOARD */}
+      <section>
+        <h4>Keyboard</h4>
+        <input
+          placeholder="Press Enter"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              alert("Enter pressed");
+            }
+          }}
+        />
+      </section>
 
-      {/* Scroll */}
-      <div
-        className="scrollBox"
-        onScroll={(e) => setScrollY(e.target.scrollTop)}
-      >
-        <div className="scrollContent">Scroll inside me</div>
-      </div>
-      <p>Scroll Y: {scrollY}px</p>
-
-      {/* Keyboard */}
-      <input
-        placeholder="Press Enter"
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            alert("Enter key pressed");
-          }
-        }}
-      />
+      {/* SCROLL */}
+      <section>
+        <h4>Scroll (inside parent)</h4>
+        <div
+          className="scrollBox"
+          onScroll={(e) => setScroll(e.target.scrollTop)}
+        >
+          <div className="scrollContent">
+            Scroll inside this box
+          </div>
+        </div>
+        <p>Scroll Y: {scroll}px</p>
+      </section>
     </div>
   );
 }
