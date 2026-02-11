@@ -7,6 +7,7 @@ export default function App() {
   const [text, setText] = useState("");
   const [scroll, setScroll] = useState(0);
   const [horizontal, setHorizontal] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   console.log("🔄 Re-render");
 
@@ -28,13 +29,17 @@ export default function App() {
 
       {/* HOVER */}
       <section>
-        <h4>Hover</h4>
-        <div className={liked ? "card active" : "card"}>
-          Hover / Toggle color
+        <h4>Hover (works now)</h4>
+        <div
+          className={liked ? "card active" : "card"}
+          onMouseEnter={() => setLiked(true)}
+          onMouseLeave={() => setLiked(false)}
+        >
+          Hover me
         </div>
       </section>
 
-      {/* INPUT + CHANGE */}
+      {/* INPUT */}
       <section>
         <h4>Input</h4>
         <input
@@ -60,7 +65,7 @@ export default function App() {
 
       {/* SCROLL + CHILD LAYOUTS */}
       <section>
-        <h4>Parent → Child Scroll Layout</h4>
+        <h4>Parent → Child Scroll (Boxes)</h4>
 
         <button onClick={() => setHorizontal(!horizontal)}>
           {horizontal ? "Vertical Scroll" : "Horizontal Scroll"}
@@ -71,8 +76,21 @@ export default function App() {
           onScroll={(e) => setScroll(e.target.scrollTop)}
         >
           {Array.from({ length: 8 }).map((_, i) => (
-            <div className="scrollContent" key={i}>
-              Child {i + 1}
+            <div
+              key={i}
+              className={
+                hoveredIndex === i ? "card active" : "card"
+              }
+              style={{
+                width: "80px",
+                height: "80px",
+                margin: "10px",
+                flexShrink: 0,
+              }}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              Box {i + 1}
             </div>
           ))}
         </div>
